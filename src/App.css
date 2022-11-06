@@ -1,10 +1,67 @@
 .App {
-overflow: hidden;
-text-align: center;
+  overflow: hidden;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.root {
+  width: 470px;
+  position: relative;
+  margin: 20px auto 0;
+  
+}
+
+.icon {
+  width: 22px;
+  height: 22px;
+  opacity: 0.3;
+  position: absolute;
+  top: 12px;
+  left: 0;
+}
+
+.input {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 12px 20px;
+  padding-left: 20px;
+  width: 400px;
+  border-radius: 10px;
+  font-size: 16px;
+}
+
+.input:focus {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.clearIcon {
+  width: 18px;
+  height: 18px;
+  opacity: 0.3;
+  position: absolute;
+  top: 14px;
+  right: 12%;
+  cursor: pointer;
+}
+
+.clearIcon:hover {
+  opacity: 0.8;
 }
 
 .content {
   height: 80vh;
+}
+
+.content_error {
+  padding-top: 250px;
+}
+
+.content_error h2 {
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+.content_error p {
+font-size: 22px;
 }
 
 .spinner {
@@ -12,7 +69,11 @@ text-align: center;
 }
 
 .joke {
-  margin: 35px 0;
+  max-width: 800px;
+  margin: 15px auto;
+  box-shadow: 0 0 3px 3px rgb(237, 237, 237);
+  border-radius: 4px 4px;
+  padding: 10px 0;
 }
 
 .pagination {
@@ -24,7 +85,7 @@ text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 20px auto;
+  margin: 0 auto 20px;
 }
 
 .pageNumber {
@@ -75,3 +136,4 @@ text-align: center;
   margin: 0;
   padding: 0;
 }
+

@@ -1,47 +1,53 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import './App.css';
+import { fetchJokes } from './redux/slices/asyncAction';
+import { setPage } from './redux/slices/filters';
 import Joke from './components/Joke';
 import Pagination from './components/Pagination';
 import Spinner from './components/Spinner';
+import Search from './components/Search';
+import './App.css';
 
 function App() {
-  const [jokes, setJokes] = useState([]);
-  const [loader, setLoader] = useState(true);
-  const [page, setPage] = useState(1);
-  const [countPage, setCountPage] = useState(0);
+
+  const {jokes, status} = useSelector(state => state.jokes)
+  const {searchValue} = useSelector(state => state.filter)
+  const {page, countPage} = useSelector(state => state.filter.currentPage);
+  const dispatch = useDispatch();
 
   const limitPage = 10;
 
-  useEffect(() => {
-    
-    const getJokes = async() => {
-      try {
-        await axios(`https://icanhazdadjoke.com/search?page=${page}&limit=${limitPage}`, {headers:{'Accept': 'application/json'}})
-        .then(({data}) => {
-          setJokes(data.results);
-          setCountPage(data.total_pages);
-      })
-      setLoader(false);
-      } catch (err) {
-        alert('Ошибка при получении данных');
-        console.log(err)
-      }
-    }
 
-    getJokes();
-  }, [page]);
+  useEffect(() => {
+
+    (async() => {
+      dispatch(fetchJokes({
+        page,
+        limitPage,
+        searchValue,
+      }))
+    })()
+
+  }, [page, searchValue]);
 
 
   return (
     <div className="App">
+      <Search />
       <div className='content'>
-        {loader 
-        ? <div className='spinner'><Spinner /></div>
-        : jokes.map(({ id, joke }) => (
-            <Joke key={id} joke={joke} />
-          ))}
+        {status === 'error' 
+        ? (<div className="content_error">
+              <h2>An error has occurred 😕</h2>
+              <p>
+                Unfortunately, it was not possible to get the pits. Please try again later.
+              </p>
+            </div>)
+        : (status === 'loading' 
+            ? <div className='spinner'><Spinner /></div>
+            : jokes.map(({ id, joke }) => (
+                <Joke key={id} joke={joke} />
+          )))}
       </div>
       <Pagination page={page} countPage={countPage} setPage={setPage} />
     </div>
