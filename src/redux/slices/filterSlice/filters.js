@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { fetchJokes } from './asyncAction';
+import { fetchJokes } from '../jokeSlice/asyncActions';
 
 export const filterSlice = createSlice({
     name: 'filter',
@@ -27,7 +27,6 @@ export const filterSlice = createSlice({
     }
 });
 
-// Action creators are generated for each case reducer function
 export const { setSearchValue, setPage, setCountPage } = filterSlice.actions;
 
 export default filterSlice.reducer;

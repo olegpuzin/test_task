@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { fetchJokes } from './asyncAction';
+import { fetchJokes } from './asyncActions';
 
 
 export const jokeSlice = createSlice({
@@ -30,7 +30,6 @@ export const jokeSlice = createSlice({
     }
 });
 
-// Action creators are generated for each case reducer function
 export const { setJokes } = jokeSlice.actions;
 
 export default jokeSlice.reducer;
